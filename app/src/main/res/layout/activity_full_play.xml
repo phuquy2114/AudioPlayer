@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/pageView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/default_album_art">
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/fullscreen_bg_gradient">
+
+        <TextView
+            android:id="@+id/textNowPlaying"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/textAlbumArtist"
+            android:ellipsize="end"
+            android:gravity="center_horizontal"
+            android:maxLines="1"
+            android:shadowColor="@android:color/black"
+            android:shadowRadius="20"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/fullscreen_line_color" />
+
+        <TextView
+            android:id="@+id/textAlbumArtist"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/textComposer"
+            android:ellipsize="end"
+            android:fontFamily="sans-serif-light"
+            android:gravity="center_horizontal"
+            android:maxLines="1"
+            android:shadowColor="@android:color/black"
+            android:shadowRadius="20"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/fullscreen_secondary_line_color" />
+
+        <TextView
+            android:id="@+id/textComposer"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/controllers"
+            android:ellipsize="end"
+            android:fontFamily="sans-serif-light"
+            android:gravity="center_horizontal"
+            android:maxLines="1"
+            android:shadowColor="@android:color/black"
+            android:shadowRadius="20"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/fullscreen_secondary_line_color" />
+
+        <LinearLayout
+            android:id="@+id/controllers"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp">
+
+                <TextView
+                    android:id="@+id/textBufferDuration"
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="@dimen/text_view_margin"
+                    android:gravity="center_vertical"
+                    android:maxLines="1"
+                    android:textColor="@android:color/white" />
+
+                <SeekBar
+                    android:id="@+id/seekBar"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_toLeftOf="@+id/textDuration"
+                    android:layout_toRightOf="@+id/textBufferDuration" />
+
+                <TextView
+                    android:id="@+id/textDuration"
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignWithParentIfMissing="true"
+                    android:layout_marginRight="@dimen/end_text_margin"
+                    android:gravity="center_vertical"
+                    android:maxLines="1"
+                    android:textColor="@android:color/white" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp">
+
+                <ImageView
+                    android:id="@+id/imgBack"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:contentDescription="@string/skip_prev"
+                    android:src="@drawable/ic_skip_previous_white_48dp" />
+
+                <ImageView
+                    android:id="@+id/imgPlay"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:contentDescription="@string/pause"
+                    android:src="@drawable/uamp_ic_play_arrow_white_48dp" />
+
+                <ImageView
+                    android:id="@+id/imgPause"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:contentDescription="@string/play_pause"
+                    android:src="@drawable/uamp_ic_pause_white_48dp"
+                    android:visibility="gone" />
+
+
+                <ImageView
+                    android:id="@+id/imgNext"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:contentDescription="@string/skip_next"
+                    android:src="@drawable/ic_skip_next_white_48dp" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+</RelativeLayout>
