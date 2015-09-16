@@ -7,7 +7,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
@@ -32,17 +32,17 @@
         </activity>
 
         <service
-            android:name=".service.SongService"
+            android:name="asiantech.dev.audioplayer.service.SongService"
             android:enabled="true"
             android:exported="true" />
 
         <receiver android:name=".receiver.NotificationBroadcast">
             <intent-filter>
-                <action android:name=".delete" />
-                <action android:name=".pause" />
-                <action android:name=".next" />
-                <action android:name=".play" />
-                <action android:name=".previous" />
+                <action android:name="com.tutorialsface.audioplayer.delete" />
+                <action android:name="com.tutorialsface.audioplayer.pause" />
+                <action android:name="com.tutorialsface.audioplayer.next" />
+                <action android:name="com.tutorialsface.audioplayer.play" />
+                <action android:name="com.tutorialsface.audioplayer.previous" />
                 <action android:name="android.intent.action.MEDIA_BUTTON" />
             </intent-filter>
         </receiver>
