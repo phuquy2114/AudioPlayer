@@ -2,23 +2,31 @@ package asiantech.dev.audioplayer.util;
 
 import android.app.ActivityManager;
 import android.app.ActivityManager.RunningServiceInfo;
+import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Environment;
 import android.os.ParcelFileDescriptor;
 import android.provider.MediaStore;
 import android.util.Log;
 
+import java.io.File;
 import java.io.FileDescriptor;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import asiantech.dev.audioplayer.R;
 
 public class UtilFunctions {
-	static String LOG_CLASS = "UtilFunctions";
+	private static String LOG_CLASS = "UtilFunctions";
+	private static final String MEDIA_PATH = Environment.getExternalStorageDirectory()
+			.getPath() + "/";
+	private static ArrayList<HashMap<String, String>> songsList = new ArrayList<HashMap<String, String>>();
+	private static String mp3Pattern = ".mp3";
 
 	/**
 	 * Check if service is running or not
@@ -41,13 +49,14 @@ public class UtilFunctions {
 	 * @return
 	 */
 	public static ArrayList<MediaItem> listOfSongs(Context context){
+		ContentResolver musicResolver = context.getContentResolver();
 		Uri uri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
-		Cursor c = context.getContentResolver().query(uri, null, MediaStore.Audio.Media.IS_MUSIC + " != 0", null, null);
+		Log.d("qqq",uri.toString());
+		Cursor c = musicResolver.query(uri, null, MediaStore.Audio.Media.IS_MUSIC + " != 0", null, null);
 		ArrayList<MediaItem> listOfSongs = new ArrayList<MediaItem>();
 		c.moveToFirst();
 		while(c.moveToNext()){
 			MediaItem songData = new MediaItem();
-			
 			String title = c.getString(c.getColumnIndex(MediaStore.Audio.Media.TITLE));
 			String artist = c.getString(c.getColumnIndex(MediaStore.Audio.Media.ARTIST));
 			String album = c.getString(c.getColumnIndex(MediaStore.Audio.Media.ALBUM));
@@ -66,7 +75,8 @@ public class UtilFunctions {
 			listOfSongs.add(songData);
 		}
 		c.close();
-		Log.d("SIZE", "SIZE: " + listOfSongs.size());
+		Log.d("qqq", "SIZE: " + listOfSongs.size());
+		Log.d("qqq", "SONGs: " + listOfSongs.toString());
 		return listOfSongs;
 	}
 
@@ -74,7 +84,6 @@ public class UtilFunctions {
 	 * Get the album image from albumId
 	 * @param context
 	 * @param album_id
-	 * @param resize
 	 * @return
 	 */
 	public static Bitmap getAlbumart(Context context,Long album_id){
@@ -145,5 +154,60 @@ public class UtilFunctions {
 			return true;
 		}
 		return false;
+	}
+
+
+
+
+	/**
+	 * Function to read all mp3 files and store the details in
+	 * ArrayList
+	 * */
+	public static ArrayList<HashMap<String, String>> getPlayList() {
+		System.out.println(MEDIA_PATH);
+		if (MEDIA_PATH != null) {
+			File home = new File(MEDIA_PATH);
+			File[] listFiles = home.listFiles();
+			if (listFiles != null && listFiles.length > 0) {
+				for (File file : listFiles) {
+					System.out.println(file.getAbsolutePath());
+					if (file.isDirectory()) {
+						scanDirectory(file);
+					} else {
+						addSongToList(file);
+					}
+				}
+			}
+		}
+		// return songs list array
+		return songsList;
+	}
+
+	private static void scanDirectory(File directory) {
+		if (directory != null) {
+			File[] listFiles = directory.listFiles();
+			if (listFiles != null && listFiles.length > 0) {
+				for (File file : listFiles) {
+					if (file.isDirectory()) {
+						scanDirectory(file);
+					} else {
+						addSongToList(file);
+					}
+
+				}
+			}
+		}
+	}
+
+	private static void addSongToList(File song) {
+		if (song.getName().endsWith(mp3Pattern)) {
+			HashMap<String, String> songMap = new HashMap<String, String>();
+			songMap.put("songTitle",
+					song.getName().substring(0, (song.getName().length() - 4)));
+			songMap.put("songPath", song.getPath());
+
+			// Adding each song to SongList
+			songsList.add(songMap);
+		}
 	}
 }

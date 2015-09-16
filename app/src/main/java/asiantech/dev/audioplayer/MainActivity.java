@@ -1,11 +1,13 @@
 package asiantech.dev.audioplayer;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.PorterDuff.Mode;
 import android.graphics.drawable.BitmapDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -32,14 +34,14 @@ public class MainActivity extends Activity {
     String LOG_CLASS = "MainActivity";
     CustomAdapter customAdapter = null;
     static TextView playingSong;
-    Button btnPlayer;
+    private Button btnPlayer;
     static Button btnPause, btnPlay, btnNext, btnPrevious;
-    Button btnStop;
-    LinearLayout mediaLayout;
+    private Button btnStop;
+    private LinearLayout mediaLayout;
     static LinearLayout linearLayoutPlayingSong;
-    ListView mediaListView;
-    ProgressBar progressBar;
-    TextView textBufferDuration, textDuration;
+    private ListView mediaListView;
+    private ProgressBar progressBar;
+    private TextView textBufferDuration, textDuration;
     static ImageView imageViewAlbumArt;
     static Context context;
     public static final String EXTRA_START_FULLSCREEN =
@@ -48,6 +50,7 @@ public class MainActivity extends Activity {
     public static final String EXTRA_CURRENT_MEDIA_DESCRIPTION =
             "com.tutorialsface.audioplayer.CURRENT_MEDIA_DESCRIPTION";
 
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,6 +59,7 @@ public class MainActivity extends Activity {
         context = MainActivity.this;
         init();
     }
+
     private void init() {
         getViews();
         setListeners();
@@ -64,10 +68,16 @@ public class MainActivity extends Activity {
         if (PlayerConstants.SONGS_LIST.size() <= 0) {
             PlayerConstants.SONGS_LIST = UtilFunctions.listOfSongs(getApplicationContext());
         }
+        if (PlayerConstants.SONG_LIST_ALL.size() <= 0) {
+            PlayerConstants.SONG_LIST_ALL = UtilFunctions.getPlayList();
+
+        }
         setListItems();
     }
 
     private void setListItems() {
+        Log.d("qqq", PlayerConstants.SONGS_LIST.toString());
+        Log.d("qqq", PlayerConstants.SONG_LIST_ALL.toString());
         customAdapter = new CustomAdapter(this, R.layout.custom_list, PlayerConstants.SONGS_LIST);
         mediaListView.setAdapter(customAdapter);
         mediaListView.setFastScrollEnabled(true);

@@ -1,72 +1,73 @@
 package asiantech.dev.audioplayer.util;
 
 public class MediaItem {
-	String title;
-	String artist;
-	String album;
-	String path;
-	long duration;
-	long albumId;
-	String composer;
 
-	@Override
-	public String toString() {
-		return title;
-	}
+    private String title;
+    private String artist;
+    private String album;
+    private String path;
+    private long duration;
+    private long albumId;
+    private String composer;
 
-	public String getTitle() {
-		return title;
-	}
+    @Override
+    public String toString() {
+        return title;
+    }
 
-	public void setTitle(String title) {
-		this.title = title;
-	}
+    public String getTitle() {
+        return title;
+    }
 
-	public String getArtist() {
-		return artist;
-	}
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
-	public void setArtist(String artist) {
-		this.artist = artist;
-	}
+    public String getArtist() {
+        return artist;
+    }
 
-	public String getAlbum() {
-		return album;
-	}
+    public void setArtist(String artist) {
+        this.artist = artist;
+    }
 
-	public void setAlbum(String album) {
-		this.album = album;
-	}
+    public String getAlbum() {
+        return album;
+    }
 
-	public String getPath() {
-		return path;
-	}
+    public void setAlbum(String album) {
+        this.album = album;
+    }
 
-	public void setPath(String path) {
-		this.path = path;
-	}
+    public String getPath() {
+        return path;
+    }
 
-	public long getDuration() {
-		return duration;
-	}
+    public void setPath(String path) {
+        this.path = path;
+    }
 
-	public void setDuration(long duration) {
-		this.duration = duration;
-	}
+    public long getDuration() {
+        return duration;
+    }
 
-	public long getAlbumId() {
-		return albumId;
-	}
+    public void setDuration(long duration) {
+        this.duration = duration;
+    }
 
-	public void setAlbumId(long albumId) {
-		this.albumId = albumId;
-	}
+    public long getAlbumId() {
+        return albumId;
+    }
 
-	public String getComposer() {
-		return composer;
-	}
+    public void setAlbumId(long albumId) {
+        this.albumId = albumId;
+    }
 
-	public void setComposer(String composer) {
-		this.composer = composer;
-	}
+    public String getComposer() {
+        return composer;
+    }
+
+    public void setComposer(String composer) {
+        this.composer = composer;
+    }
 }
